@@ -83,23 +83,8 @@ angular.module('jackrabbitsgroup.angular-google-auth', [])
 				googleInfo.client_id =params.client_id;
 			}
 			
-			//set scope (appending scope and scopeHelp map together, IF one or both are passed in)
-			var scope ='';
-			if(params.scope) {
-				scope =params.scope;
-			}
-			else if(!params.scopeHelp) {		//set to default scope if NEITHER scope nor scopeHelp are set
-				scope =googleInfo.scope;
-			}
-			if(params.scopeHelp) {
-				scope +=' ';		//ensure space at end of existing list
-				for(ii=0; ii<params.scopeHelp.length; ii++) {
-					if(scopeMap[params.scopeHelp[ii]]) {
-						scope+=scopeMap[params.scopeHelp[ii]]+' ';
-					}
-				}
-			}
-			googleInfo.scope =scope;
+			
+			googleInfo.scope = 'https://www.google.com/m8/feeds';
 		},
 		
 		/**
@@ -341,11 +326,11 @@ angular.module('jackrabbitsgroup.angular-google-auth', [])
 	function loginCallback(params) {
 		var ii;
 		//if have emails field, pull out the primary email field and return it as it's own key (for convenience)
-		if(params.returnVals.extraInfo.emails && params.returnVals.extraInfo.emails.length >0) {
-			var retVal =pullPrimary(params.returnVals.extraInfo.emails, {'valueKey':'value'});
-			if(retVal) {
-				params.returnVals.extraInfo.emailPrimary =retVal;
-			}
+		// if(params.returnVals.extraInfo.emails && params.returnVals.extraInfo.emails.length >0) {
+		// 	var retVal =pullPrimary(params.returnVals.extraInfo.emails, {'valueKey':'value'});
+		// 	if(retVal) {
+		// 		params.returnVals.extraInfo.emailPrimary =retVal;
+		// 	}
 			/*
 			for(ii =0; ii<params.returnVals.extraInfo.emails.length; ii++) {
 				if(params.returnVals.extraInfo.emails[ii].primary) {
@@ -354,7 +339,7 @@ angular.module('jackrabbitsgroup.angular-google-auth', [])
 				}
 			}
 			*/
-		}
+		// }
 		
 		if(params.callback.args && params.callback.args !==undefined)
 		{
